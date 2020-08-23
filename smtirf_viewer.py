@@ -16,6 +16,14 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
 
     def __init__(self, **kwargs):
         super().__init__(title="smTIRF Analysis", **kwargs)
+        self.setup_toolbar()
+
+    def setup_toolbar(self):
+        toolbar = self.addToolBar("Main")
+        self.add_toolbar_button(toolbar, "microscope", "Viewer", None)
+        self.add_toolbar_button(toolbar, "polyline", "Results", None)
+        self.add_toolbar_button(toolbar, "settings", "Settings", None)
+        self.format_toolbar(toolbar)
 
 
 
