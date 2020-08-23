@@ -17,13 +17,39 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
     def __init__(self, **kwargs):
         super().__init__(title="smTIRF Analysis", **kwargs)
         self.setup_toolbar()
+        self.switch_app("viewer")
 
     def setup_toolbar(self):
         toolbar = self.addToolBar("Main")
-        self.add_toolbar_button(toolbar, "microscope", "Viewer", None)
-        self.add_toolbar_button(toolbar, "polyline", "Results", None)
-        self.add_toolbar_button(toolbar, "settings", "Settings", None)
-        self.format_toolbar(toolbar)
+        gui.add_toolbar_button(toolbar, "microscope", "Viewer", None)
+        gui.add_toolbar_button(toolbar, "polyline", "Results", None)
+        gui.add_toolbar_button(toolbar, "settings", "Settings", None)
+        gui.format_toolbar(toolbar)
+
+    def switch_app(self, appType):
+        # try:
+        #     self.removeToolBar(self.pnl.toolbar)
+        # except AttributeError:
+        #     pass
+
+        if appType == "viewer":
+            self.pnl = TraceViewerSubApp(parent=self)
+            # if self.controller.expt is not None:
+            #     self.controller.experimentLoaded.emit(self.controller.expt)
+        # elif appType == "analysis":
+        #     self.pnl = ExperimentAnalysisSubApp(parent=self)
+        self.setCentralWidget(self.pnl)
+
+# ==============================================================================
+# TRACE VIEWER
+# ==============================================================================
+class TraceViewerSubApp(gui.SMTirfPanel):
+
+    def setup_toolbar(self):
+        toolbar = QtWidgets.QToolBar("Experiment", parent=self)
+        gui.add_toolbar_button(toolbar, "download", "Import", None)
+        gui.format_toolbar(toolbar)
+        self.parent().addToolBar(toolbar)
 
 
 
