@@ -18,12 +18,12 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
     def __init__(self, **kwargs):
         super().__init__(title="smTIRF Analysis", **kwargs)
         self.setup_toolbar()
-        self.switch_app("viewer")
+        self.switch_app("results")
 
     def setup_toolbar(self):
         toolbar = self.addToolBar("Main")
-        gui.add_toolbar_button(toolbar, "microscope", "Viewer", None)
-        gui.add_toolbar_button(toolbar, "polyline", "Results", None)
+        gui.add_toolbar_button(toolbar, "microscope", "Viewer", lambda: self.switch_app("viewer"))
+        gui.add_toolbar_button(toolbar, "polyline", "Results", lambda: self.switch_app("results"))
         gui.add_toolbar_button(toolbar, "settings", "Settings", None)
         gui.format_toolbar(toolbar)
 
@@ -35,6 +35,8 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
 
         if appType == "viewer":
             self.pnl = TraceViewerSubApp(parent=self)
+        elif appType == "results":
+            self.pnl = ExperimentResultsSubApp(parent=self)
             # if self.controller.expt is not None:
             #     self.controller.experimentLoaded.emit(self.controller.expt)
         # elif appType == "analysis":
@@ -72,6 +74,20 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         actions = OrderedDict([("Reset Offsets", None),
                                ("Reset Limits", None)])
         gui.add_toolbar_menu(toolbar, "ruler", "Attributes", actions)
+        gui.format_toolbar(toolbar)
+        self.parent().addToolBar(toolbar)
+
+# ==============================================================================
+# EXPERIMENT RESULTS
+# ==============================================================================
+class ExperimentResultsSubApp(gui.SMTirfPanel):
+
+    def setup_toolbar(self):
+        toolbar = QtWidgets.QToolBar("Results", parent=self)
+        gui.add_toolbar_button(toolbar, "histogram", "State Populations", None)
+        gui.add_toolbar_button(toolbar, "tdp", "TDP", None)
+        gui.add_toolbar_button(toolbar, "kinetics", "Kinetics", None)
+        toolbar.addSeparator()
         gui.format_toolbar(toolbar)
         self.parent().addToolBar(toolbar)
 
