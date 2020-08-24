@@ -6,6 +6,7 @@ Single-Molecule TIRF Viewer App
 from PyQt5.QtWidgets import QApplication, QSizePolicy
 from PyQt5 import QtWidgets, QtCore, QtGui
 import sys
+from collections import OrderedDict
 
 from smtirf import gui
 
@@ -48,6 +49,29 @@ class TraceViewerSubApp(gui.SMTirfPanel):
     def setup_toolbar(self):
         toolbar = QtWidgets.QToolBar("Experiment", parent=self)
         gui.add_toolbar_button(toolbar, "download", "Import", None)
+        gui.add_toolbar_button(toolbar, "merge", "Merge", None)
+        toolbar.addSeparator()
+        # ======================================================================
+        gui.add_toolbar_button(toolbar, "open", "Open", None, shortcut="Ctrl+O")
+        gui.add_toolbar_button(toolbar, "save", "Save", None, shortcut="Ctrl+S")
+        toolbar.addSeparator()
+        # ======================================================================
+        gui.add_toolbar_button(toolbar, "ecg", "Baseline", None)
+        toolbar.addSeparator()
+        # ======================================================================
+        actions = OrderedDict([("Index", None),
+                               ("Selected", None),
+                               ("Cluster", None),
+                               ("Correlation", None)])
+        gui.add_toolbar_menu(toolbar, "sort_alpha", "Sort", actions)
+        actions = OrderedDict([("Select All", None),
+                               ("Select None", None)])
+        gui.add_toolbar_menu(toolbar, "check_all", "Select", actions)
+        toolbar.addSeparator()
+        # ======================================================================
+        actions = OrderedDict([("Reset Offsets", None),
+                               ("Reset Limits", None)])
+        gui.add_toolbar_menu(toolbar, "ruler", "Attributes", actions)
         gui.format_toolbar(toolbar)
         self.parent().addToolBar(toolbar)
 
