@@ -28,10 +28,10 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
         gui.format_toolbar(toolbar)
 
     def switch_app(self, appType):
-        # try:
-        #     self.removeToolBar(self.pnl.toolbar)
-        # except AttributeError:
-        #     pass
+        try:
+            self.pnl.unbind()
+        except AttributeError:
+            pass
 
         if appType == "viewer":
             self.pnl = TraceViewerSubApp(parent=self)
@@ -76,6 +76,7 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         gui.add_toolbar_menu(toolbar, "ruler", "Attributes", actions)
         gui.format_toolbar(toolbar)
         self.parent().addToolBar(toolbar)
+        self.toolbar = toolbar
 
 # ==============================================================================
 # EXPERIMENT RESULTS
@@ -90,6 +91,7 @@ class ExperimentResultsSubApp(gui.SMTirfPanel):
         toolbar.addSeparator()
         gui.format_toolbar(toolbar)
         self.parent().addToolBar(toolbar)
+        self.toolbar = toolbar
 
 
 
