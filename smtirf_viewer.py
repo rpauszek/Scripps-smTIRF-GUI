@@ -51,7 +51,7 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         gui.add_toolbar_button(self.toolbar, "merge", "Merge", None)
         self.toolbar.addSeparator()
         # ======================================================================
-        gui.add_toolbar_button(self.toolbar, "open", "Open", None, shortcut="Ctrl+O")
+        gui.add_toolbar_button(self.toolbar, "open", "Open", self.controller.open_experiment, shortcut="Ctrl+O")
         gui.add_toolbar_button(self.toolbar, "save", "Save", None, shortcut="Ctrl+S")
         self.toolbar.addSeparator()
         # ======================================================================
@@ -76,7 +76,13 @@ class TraceViewerSubApp(gui.SMTirfPanel):
 
     def layout(self):
         mainBox = QtWidgets.QVBoxLayout()
-        mainBox.addWidget(gui.plots.FretExperimentViewerPlot(self.controller))
+        hboxTrace = QtWidgets.QHBoxLayout()
+        hboxNav = QtWidgets.QHBoxLayout()
+
+        hboxNav.addWidget(gui.widgets.NavBar(self.controller))
+
+        mainBox.addWidget(gui.plots.FretExperimentViewerPlot(self.controller), stretch=1)
+        mainBox.addLayout(hboxNav)
 
         self.setLayout(mainBox)
 
