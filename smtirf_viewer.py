@@ -74,6 +74,12 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         gui.format_toolbar(self.toolbar)
         self.parent().addToolBar(self.toolbar)
 
+    def layout(self):
+        mainBox = QtWidgets.QVBoxLayout()
+        mainBox.addWidget(gui.plots.FretExperimentViewerPlot(self.controller))
+
+        self.setLayout(mainBox)
+
 # ==============================================================================
 # EXPERIMENT RESULTS
 # ==============================================================================
