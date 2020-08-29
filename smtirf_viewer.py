@@ -18,7 +18,7 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
     def __init__(self, **kwargs):
         super().__init__(title="smTIRF Analysis", **kwargs)
         self.setup_toolbar()
-        self.switch_app("results")
+        self.switch_app("viewer")
 
     def setup_toolbar(self):
         toolbar = self.addToolBar("Main")
@@ -34,13 +34,11 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
             pass
 
         if appType == "viewer":
-            self.pnl = TraceViewerSubApp(parent=self)
-        elif appType == "results":
-            self.pnl = ExperimentResultsSubApp(parent=self)
+            self.pnl = TraceViewerSubApp(toolbarName="Experiment", parent=self)
             # if self.controller.expt is not None:
             #     self.controller.experimentLoaded.emit(self.controller.expt)
-        # elif appType == "analysis":
-        #     self.pnl = ExperimentAnalysisSubApp(parent=self)
+        elif appType == "results":
+            self.pnl = ExperimentResultsSubApp(toolbarName="Results", parent=self)
         self.setCentralWidget(self.pnl)
 
 # ==============================================================================
@@ -49,34 +47,32 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
 class TraceViewerSubApp(gui.SMTirfPanel):
 
     def setup_toolbar(self):
-        toolbar = QtWidgets.QToolBar("Experiment", parent=self)
-        gui.add_toolbar_button(toolbar, "download", "Import", None)
-        gui.add_toolbar_button(toolbar, "merge", "Merge", None)
-        toolbar.addSeparator()
+        gui.add_toolbar_button(self.toolbar, "download", "Import", None)
+        gui.add_toolbar_button(self.toolbar, "merge", "Merge", None)
+        self.toolbar.addSeparator()
         # ======================================================================
-        gui.add_toolbar_button(toolbar, "open", "Open", None, shortcut="Ctrl+O")
-        gui.add_toolbar_button(toolbar, "save", "Save", None, shortcut="Ctrl+S")
-        toolbar.addSeparator()
+        gui.add_toolbar_button(self.toolbar, "open", "Open", None, shortcut="Ctrl+O")
+        gui.add_toolbar_button(self.toolbar, "save", "Save", None, shortcut="Ctrl+S")
+        self.toolbar.addSeparator()
         # ======================================================================
-        gui.add_toolbar_button(toolbar, "ecg", "Baseline", None)
-        toolbar.addSeparator()
+        gui.add_toolbar_button(self.toolbar, "ecg", "Baseline", None)
+        self.toolbar.addSeparator()
         # ======================================================================
         actions = OrderedDict([("Index", None),
                                ("Selected", None),
                                ("Cluster", None),
                                ("Correlation", None)])
-        gui.add_toolbar_menu(toolbar, "sort_alpha", "Sort", actions)
+        gui.add_toolbar_menu(self.toolbar, "sort_alpha", "Sort", actions)
         actions = OrderedDict([("Select All", None),
                                ("Select None", None)])
-        gui.add_toolbar_menu(toolbar, "check_all", "Select", actions)
-        toolbar.addSeparator()
+        gui.add_toolbar_menu(self.toolbar, "check_all", "Select", actions)
+        self.toolbar.addSeparator()
         # ======================================================================
         actions = OrderedDict([("Reset Offsets", None),
                                ("Reset Limits", None)])
-        gui.add_toolbar_menu(toolbar, "ruler", "Attributes", actions)
-        gui.format_toolbar(toolbar)
-        self.parent().addToolBar(toolbar)
-        self.toolbar = toolbar
+        gui.add_toolbar_menu(self.toolbar, "ruler", "Attributes", actions)
+        gui.format_toolbar(self.toolbar)
+        self.parent().addToolBar(self.toolbar)
 
 # ==============================================================================
 # EXPERIMENT RESULTS
@@ -84,14 +80,12 @@ class TraceViewerSubApp(gui.SMTirfPanel):
 class ExperimentResultsSubApp(gui.SMTirfPanel):
 
     def setup_toolbar(self):
-        toolbar = QtWidgets.QToolBar("Results", parent=self)
-        gui.add_toolbar_button(toolbar, "histogram", "State Populations", None)
-        gui.add_toolbar_button(toolbar, "tdp", "TDP", None)
-        gui.add_toolbar_button(toolbar, "kinetics", "Kinetics", None)
-        toolbar.addSeparator()
-        gui.format_toolbar(toolbar)
-        self.parent().addToolBar(toolbar)
-        self.toolbar = toolbar
+        gui.add_toolbar_button(self.toolbar, "histogram", "State Populations", None)
+        gui.add_toolbar_button(self.toolbar, "tdp", "TDP", None)
+        gui.add_toolbar_button(self.toolbar, "kinetics", "Kinetics", None)
+        self.toolbar.addSeparator()
+        gui.format_toolbar(self.toolbar)
+        self.parent().addToolBar(self.toolbar)
 
 
 
