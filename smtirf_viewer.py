@@ -82,7 +82,7 @@ class TraceViewerSubApp(gui.SMTirfPanel):
 
         hboxNav.addWidget(gui.widgets.NavBar(self.controller))
 
-        mainBox.addWidget(gui.plots.FretExperimentViewerPlot(self.controller), stretch=1)
+        mainBox.addWidget(gui.plots.TraceViewerPlot(self.controller), stretch=1)
         mainBox.addLayout(hboxNav)
 
         self.setLayout(mainBox)
