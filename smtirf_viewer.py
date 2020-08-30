@@ -58,13 +58,13 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         gui.add_toolbar_button(self.toolbar, "ecg", "Baseline", None)
         self.toolbar.addSeparator()
         # ======================================================================
-        actions = OrderedDict([("Index", None),
-                               ("Selected", None),
-                               ("Cluster", None),
-                               ("Correlation", None)])
+        actions = OrderedDict([("Index", self.controller.sort_by_index),
+                               ("Selected", self.controller.sort_by_selected),
+                               ("Cluster", self.controller.sort_by_cluster),
+                               ("Correlation", self.controller.sort_by_correlation)])
         gui.add_toolbar_menu(self.toolbar, "sort_alpha", "Sort", actions)
-        actions = OrderedDict([("Select All", None),
-                               ("Select None", None)])
+        actions = OrderedDict([("Select All", self.controller.select_all),
+                               ("Select None", self.controller.select_none)])
         gui.add_toolbar_menu(self.toolbar, "check_all", "Select", actions)
         self.toolbar.addSeparator()
         # ======================================================================
@@ -73,6 +73,7 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         gui.add_toolbar_menu(self.toolbar, "ruler", "Attributes", actions)
         gui.format_toolbar(self.toolbar)
         self.parent().addToolBar(self.toolbar)
+        self.toolbar.addAction(gui.widgets.ToggleSelectionAction(self.toolbar))
 
     def layout(self):
         mainBox = QtWidgets.QVBoxLayout()
