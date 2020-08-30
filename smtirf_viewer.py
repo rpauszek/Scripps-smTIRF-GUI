@@ -80,8 +80,17 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         hboxTrace = QtWidgets.QHBoxLayout()
         hboxNav = QtWidgets.QHBoxLayout()
 
-        hboxNav.addWidget(gui.widgets.NavBar(self.controller))
+        hboxTrace.addWidget(gui.widgets.TraceIdLabel(self.controller))
+        hboxTrace.addWidget(gui.widgets.CorrelationLabel(self.controller))
+        hboxTrace.addItem(QtWidgets.QSpacerItem(10, 10, QSizePolicy.Expanding, QSizePolicy.Fixed))
+        hboxTrace.addWidget(gui.widgets.CoordinateLabel(self.controller))
+        grpTrace = QtWidgets.QGroupBox("Trace")
+        grpTrace.setLayout(hboxTrace)
 
+        hboxNav.addWidget(gui.widgets.NavBar(self.controller), stretch=1)
+        hboxNav.addWidget(gui.widgets.SelectedItemsCounter(self.controller))
+
+        mainBox.addWidget(grpTrace)
         mainBox.addWidget(gui.plots.TraceViewerPlot(self.controller), stretch=1)
         mainBox.addLayout(hboxNav)
 
