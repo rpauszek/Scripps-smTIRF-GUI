@@ -47,7 +47,7 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
 class TraceViewerSubApp(gui.SMTirfPanel):
 
     def setup_toolbar(self):
-        gui.add_toolbar_button(self.toolbar, "download", "Import", None)
+        gui.add_toolbar_button(self.toolbar, "download", "Import", self.controller.import_experiment_from_pma)
         gui.add_toolbar_button(self.toolbar, "merge", "Merge", None)
         self.toolbar.addSeparator()
         # ======================================================================
