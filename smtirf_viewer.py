@@ -77,20 +77,31 @@ class TraceViewerSubApp(gui.SMTirfPanel):
 
     def layout(self):
         mainBox = QtWidgets.QVBoxLayout()
+        hboxTop = QtWidgets.QHBoxLayout()
         hboxTrace = QtWidgets.QHBoxLayout()
+        hboxModel = QtWidgets.QHBoxLayout()
         hboxNav = QtWidgets.QHBoxLayout()
 
         hboxTrace.addWidget(gui.widgets.TraceIdLabel(self.controller))
         hboxTrace.addWidget(gui.widgets.CorrelationLabel(self.controller))
         hboxTrace.addItem(QtWidgets.QSpacerItem(10, 10, QSizePolicy.Expanding, QSizePolicy.Fixed))
         hboxTrace.addWidget(gui.widgets.CoordinateLabel(self.controller))
+        hboxTrace.setContentsMargins(10,0,10,0)
         grpTrace = QtWidgets.QGroupBox("Trace")
         grpTrace.setLayout(hboxTrace)
+
+        hboxModel.addWidget(gui.widgets.TrainModelButton(self.controller))
+        hboxModel.setContentsMargins(0,0,0,0)
+        grpModel = QtWidgets.QGroupBox("Model")
+        grpModel.setLayout(hboxModel)
+
+        hboxTop.addWidget(grpTrace)
+        hboxTop.addWidget(grpModel)
 
         hboxNav.addWidget(gui.widgets.NavBar(self.controller), stretch=1)
         hboxNav.addWidget(gui.widgets.SelectedItemsCounter(self.controller))
 
-        mainBox.addWidget(grpTrace)
+        mainBox.addLayout(hboxTop)
         mainBox.addWidget(gui.plots.TraceViewerPlot(self.controller), stretch=1)
         mainBox.addLayout(hboxNav)
 
