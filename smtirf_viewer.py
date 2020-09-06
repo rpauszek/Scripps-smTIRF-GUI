@@ -81,6 +81,7 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         hboxModel = QtWidgets.QHBoxLayout()
         hboxNav = QtWidgets.QHBoxLayout()
 
+        hboxTrace.addWidget(gui.widgets.ExportTraceButton(self.controller))
         hboxTrace.addWidget(gui.widgets.TraceIdLabel(self.controller))
         hboxTrace.addWidget(gui.widgets.CorrelationLabel(self.controller))
         hboxTrace.addItem(QtWidgets.QSpacerItem(10, 10, QSizePolicy.Expanding, QSizePolicy.Fixed))
