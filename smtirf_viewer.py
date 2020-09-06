@@ -53,7 +53,7 @@ class TraceViewerSubApp(gui.SMTirfPanel):
 
     def setup_toolbar(self):
         gui.add_toolbar_button(self.toolbar, "download", "Import", self.controller.import_experiment_from_pma)
-        gui.add_toolbar_button(self.toolbar, "merge", "Merge", None)
+        gui.add_toolbar_button(self.toolbar, "merge", "Merge", self.controller.merge_experiments)
         gui.add_toolbar_button(self.toolbar, "open", "Open", self.controller.open_experiment, shortcut="Ctrl+O")
         gui.add_toolbar_button(self.toolbar, "save", "Save", self.controller.save_experiment, shortcut="Ctrl+S")
         self.toolbar.addSeparator()
