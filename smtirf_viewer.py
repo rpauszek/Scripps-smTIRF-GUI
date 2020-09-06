@@ -58,7 +58,7 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         gui.add_toolbar_button(self.toolbar, "save", "Save", self.controller.save_experiment, shortcut="Ctrl+S")
         self.toolbar.addSeparator()
         # ======================================================================
-        gui.add_toolbar_button(self.toolbar, "ecg", "Baseline", None)
+        gui.add_toolbar_button(self.toolbar, "ecg", "Baseline", self.controller.detect_baseline)
         gui.add_toolbar_button(self.toolbar, "process", "Train All", self.controller.train_all_traces)
         self.toolbar.addSeparator()
         # ======================================================================
