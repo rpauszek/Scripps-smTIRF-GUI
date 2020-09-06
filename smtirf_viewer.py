@@ -27,6 +27,11 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
         gui.add_toolbar_button(toolbar, "settings", "Settings", None)
         gui.format_toolbar(toolbar)
 
+    def set_title(self, path):
+        if path is None:
+            path = "*"
+        self.setWindowTitle(f"smTIRF Analysis ({path})")
+
     def switch_app(self, appType):
         try:
             self.pnl.unbind()
@@ -50,7 +55,7 @@ class TraceViewerSubApp(gui.SMTirfPanel):
         gui.add_toolbar_button(self.toolbar, "download", "Import", self.controller.import_experiment_from_pma)
         gui.add_toolbar_button(self.toolbar, "merge", "Merge", None)
         gui.add_toolbar_button(self.toolbar, "open", "Open", self.controller.open_experiment, shortcut="Ctrl+O")
-        gui.add_toolbar_button(self.toolbar, "save", "Save", None, shortcut="Ctrl+S")
+        gui.add_toolbar_button(self.toolbar, "save", "Save", self.controller.save_experiment, shortcut="Ctrl+S")
         self.toolbar.addSeparator()
         # ======================================================================
         gui.add_toolbar_button(self.toolbar, "ecg", "Baseline", None)
