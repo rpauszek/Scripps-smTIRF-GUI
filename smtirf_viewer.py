@@ -130,9 +130,15 @@ class ExperimentResultsSubApp(gui.SMTirfPanel):
 
     def layout(self):
         mainBox = QtWidgets.QVBoxLayout()
+
+        grpResults = QtWidgets.QGroupBox("Results")
+        hbox = QtWidgets.QHBoxLayout()
+        hbox.addItem(QtWidgets.QSpacerItem(10, 10, QSizePolicy.Expanding, QSizePolicy.Fixed))
+        hbox.addWidget(gui.widgets.UpdateResultsButton(self.controller))
+        grpResults.setLayout(hbox)
         
+        mainBox.addWidget(grpResults)
         mainBox.addWidget(gui.plots.ResultViewerPlot(self.controller), stretch=1)
-        # mainBox.addLayout(hboxNav)
 
         self.setLayout(mainBox)
 
