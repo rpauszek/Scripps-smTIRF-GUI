@@ -118,12 +118,26 @@ class TraceViewerSubApp(gui.SMTirfPanel):
 class ExperimentResultsSubApp(gui.SMTirfPanel):
 
     def setup_toolbar(self):
-        gui.add_toolbar_button(self.toolbar, "histogram", "State Populations", None)
-        gui.add_toolbar_button(self.toolbar, "tdp", "TDP", None)
-        gui.add_toolbar_button(self.toolbar, "kinetics", "Kinetics", None)
+        gui.add_toolbar_button(self.toolbar, "histogram", "State Populations", 
+                               lambda: self.change_view("splithist"))
+        gui.add_toolbar_button(self.toolbar, "tdp", "TDP", 
+                               lambda: self.change_view("tdp"))
+        gui.add_toolbar_button(self.toolbar, "kinetics", "Kinetics", 
+                               lambda: self.change_view("kinetics"))
         self.toolbar.addSeparator()
         gui.format_toolbar(self.toolbar)
         self.parent().addToolBar(self.toolbar)
+
+    def layout(self):
+        mainBox = QtWidgets.QVBoxLayout()
+        
+        mainBox.addWidget(gui.plots.ResultViewerPlot(self.controller), stretch=1)
+        # mainBox.addLayout(hboxNav)
+
+        self.setLayout(mainBox)
+
+    def change_view(self, view):
+        self.controller.currentResultViewChanged.emit(view)
 
 
 
