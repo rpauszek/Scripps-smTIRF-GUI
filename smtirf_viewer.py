@@ -40,8 +40,9 @@ class SMTirfViewerApp(gui.SMTirfMainWindow):
 
         if appType == "viewer":
             self.pnl = TraceViewerSubApp(toolbarName="Experiment", parent=self)
-            # if self.controller.expt is not None:
-            #     self.controller.experimentLoaded.emit(self.controller.expt)
+            if self.controller.expt is not None:
+                self.controller.experimentLoaded.emit(self.controller.expt)
+                self.controller.update_index(self.controller.index)
         elif appType == "results":
             self.pnl = ExperimentResultsSubApp(toolbarName="Results", parent=self)
         self.setCentralWidget(self.pnl)
